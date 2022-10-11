@@ -1,4 +1,5 @@
 #include <iostream>
+#include "task-1.h"
 using namespace std;
 
 int main() {
@@ -11,6 +12,8 @@ int main() {
     switch (task)
     {
     case 1:
+        Task_1 solver;
+        solver.solve();
         break;
     case 2:
         break;
@@ -21,6 +24,7 @@ int main() {
     case 5:
         break;
     default:
-        break;
+        cout << "No valid task" << endl;
+        return 1;
     }
 }
