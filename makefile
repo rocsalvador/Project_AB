@@ -5,12 +5,19 @@ OBJ_FILES := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
 # LDFLAGS := ...
 # CPPFLAGS := ...
 CXXFLAGS := -O3 -Wall
+TARGET := project
+CC := g++
 
-project: $(OBJ_FILES)
-	g++ $(LDFLAGS) -o $@ $^
+all: obj_dir $(TARGET)
+
+$(TARGET): $(OBJ_FILES)
+	$(CC) $(LDFLAGS) -o $@ $^
+
+obj_dir:
+	@mkdir -p $(OBJ_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
-	g++ $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $<
+	$(CC) $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $<
 
 clean:
-	rm $(OBJ_FILES) project
+	rm -rf $(OBJ_DIR) $(TARGET)
