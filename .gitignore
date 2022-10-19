@@ -1,5 +1,5 @@
 *.txt
-main
 MultiplexedSamples
 *.o
 .vscode
+project

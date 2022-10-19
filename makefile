@@ -1,16 +1,16 @@
-flags=-O3 -Wall
+SRC_DIR := src
+OBJ_DIR := obj
+SRC_FILES := $(wildcard $(SRC_DIR)/*.cpp)
+OBJ_FILES := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
+# LDFLAGS := ...
+# CPPFLAGS := ...
+CXXFLAGS := -O3 -Wall
 
-all: task1 suffixtree main
-	g++ $(flags) -o project main.o task1.o suffixtree.o
+project: $(OBJ_FILES)
+	g++ $(LDFLAGS) -o $@ $^
 
-main: main.cpp
-	g++ $(flags) -c main.cpp
-
-task1: task1.cpp
-	g++ $(flags) -c task1.cpp
-
-suffixtree: suffixtree.cpp
-	g++ $(flags) -c suffixtree.cpp
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	g++ $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $<
 
 clean:
-	rm *.o project
+	rm $(OBJ_FILES) project
