@@ -1,11 +1,14 @@
 #include <iostream>
-#include "task-1.h"
+#include "task1.h"
 using namespace std;
 
-int main() {
-    int task;
-    cout << "Input task to solve [1-5]: ";
-    cin >> task;
+int main(int argc, char** argv) {
+    if (argc < 2) {
+        cout << "Usage:" << endl;
+        cout << "./project task_num" << endl;
+        return 1;
+    }
+    int task = stoi(argv[1]);
     cout << "-----------------------------------" << endl;
     cout << "- Task " << task << "                          -" << endl;
     cout << "-----------------------------------" << endl;

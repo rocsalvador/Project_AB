@@ -1,26 +1,29 @@
 #ifndef SUFFIXTREE_HH
 #define SUFFIXTREE_HH
 
-#include <unordered_map>
 #include <string>
-using namespace std;
+#include <vector>
 
 class SuffixTree {
-private:
-    struct Node {
-        unordered_map<char, Node*> childs;
-    };
+    public:
+        struct Node {
+            std::string sub = "";
+            std::vector<int> childs;
 
-    Node* root;
+            Node() {}
 
-public:
-    SuffixTree();
+            Node(const std::string& sub, std::initializer_list<int> ch) : sub(sub) {
+                childs.insert(childs.end(), ch);
+            }
+        };
 
-    Node* getRoot();
+        std::vector<Node> nodes;
 
-    void addSequence(string sequence, Node* node);
+        SuffixTree(const std::string& s);
 
-    void visualize(Node* node);
+        void showTree();
+
+    private:
+        void addSuffix(const std::string& suff);
 };
-
 #endif
