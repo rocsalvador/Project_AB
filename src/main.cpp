@@ -1,5 +1,6 @@
 #include <iostream>
 #include "task1.h"
+#include "task2.h"
 using namespace std;
 
 int main(int argc, char** argv) {
@@ -15,10 +16,12 @@ int main(int argc, char** argv) {
     switch (task)
     {
     case 1:
-        Task_1 solver;
-        solver.solve();
+        Task_1 task_1;
+        task_1.solve();
         break;
     case 2:
+        Task_2 task_2;
+        task_2.solve(stof(argv[2]));
         break;
     case 3:
         break;

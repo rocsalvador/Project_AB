@@ -41,3 +41,24 @@ bool Trie::search(const std::string& s, Node* node) {
         else return search(nextStr, result->second);
     }
 }
+
+bool Trie::searchWithMissmatch(const std::string& s, int errors, int maxErrors, Node* node) {
+    if (s == "") {
+        if (node->childs.find('.') != node->childs.end()) return true;
+        else return false;
+    }
+    else {
+        auto result = node->childs.find(s[0]);
+        std::string nextStr;
+        if (s.length() == 1) nextStr = "";
+        else nextStr = s.substr(1, s.length() - 1);
+        if (result == node->childs.end()) {
+            if (errors < maxErrors) {
+                ++errors;
+                return searchWithMissmatch(nextStr, errors, maxErrors, node);
+            }
+            else return false;
+        }
+        else return searchWithMissmatch(nextStr, errors, maxErrors, result->second);
+    }
+}

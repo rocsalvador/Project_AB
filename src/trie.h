@@ -16,5 +16,7 @@ public:
 
     bool search(const std::string& s, Node* node);
 
+    bool searchWithMissmatch(const std::string& s, int errors, int maxErrors, Node* node);
+
     Node* getRoot();
 };
