@@ -1,16 +1,29 @@
 #include <string>
 #include <fstream>
 #include "task1.h"
-#include "suffixtree.h"
+#include "trie.h"
 #include <iostream>
 using namespace std;
 
 void Task_1::solve() {
     std::ifstream file("data/s_3_sequence_1M.txt");
     std::string s, a = "TGGAATTCTCGGGTGCCAAGGAACTCCAGTCACACAGTGATCTCGTATGCCGTCTTCTGCTTG";
-    int n = 0;
-    while (file >> s) {
-        SuffixTree suffixTree(s);
-        ++n;
+    Trie trie;
+    for (uint i = 1; i <= a.size(); ++i) {
+        trie.addText(a.substr(0, i), trie.getRoot());
     }
+    uint lengthDistr = 0, n = 0;
+    while (file >> s) {
+        for (uint i = s.size(); i > 0; --i) {
+            if (trie.search(s.substr(s.size() - i, i), trie.getRoot())) {
+                // cout << s.substr(s.size() - i, i) << endl;
+                lengthDistr += s.size() - s.substr(s.size() - i, i).size();
+                ++n;
+                break;
+            }
+        }
+    }
+    lengthDistr /= n;
+    cout << "Sequences with a match: " << n << endl;
+    cout << "Length distribution: " << lengthDistr << endl;
 }
