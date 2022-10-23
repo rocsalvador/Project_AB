@@ -6,7 +6,7 @@ using namespace std;
 int main(int argc, char** argv) {
     if (argc < 2) {
         cout << "Usage:" << endl;
-        cout << "./project task_num" << endl;
+        cout << "./project task_num < path/to/input" << endl;
         return 1;
     }
     int task = stoi(argv[1]);
@@ -20,6 +20,11 @@ int main(int argc, char** argv) {
         task_1.solve();
         break;
     case 2:
+        if (argc < 3) {
+            cout << "Usage:" << endl;
+            cout << "./project 2 percentage < path/to/input" << endl;
+            return 1;
+        }
         Task_2 task_2;
         task_2.solve(stof(argv[2]));
         break;
