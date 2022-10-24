@@ -53,7 +53,7 @@ bool Trie::searchWithMissmatch(const std::string& s, int errors, int maxErrors, 
         if (s.length() == 1) nextStr = "";
         else nextStr = s.substr(1, s.length() - 1);
         if (result == node->childs.end()) {
-            if (errors < maxErrors) {
+            if (errors <= maxErrors) {
                 ++errors;
                 return searchWithMissmatch(nextStr, errors, maxErrors, node);
             }

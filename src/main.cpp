@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 #include "task1.h"
 #include "task2.h"
 using namespace std;
@@ -10,9 +11,10 @@ int main(int argc, char** argv) {
         return 1;
     }
     int task = stoi(argv[1]);
-    cout << "-----------------------------------" << endl;
-    cout << "- Task " << task << "                          -" << endl;
-    cout << "-----------------------------------" << endl;
+    cout << "Task " << task << endl;
+    cout << "---------------" << endl;
+
+    auto t1 = chrono::high_resolution_clock::now();
     switch (task)
     {
     case 1:
@@ -28,8 +30,6 @@ int main(int argc, char** argv) {
         Task_2 task_2;
         task_2.solve(stof(argv[2]));
         break;
-    case 3:
-        break;
     case 4:
         break;
     case 5:
@@ -38,4 +38,8 @@ int main(int argc, char** argv) {
         cout << "No valid task" << endl;
         return 1;
     }
+    auto t2 = chrono::high_resolution_clock::now();
+    auto sInt = chrono::duration_cast<chrono::milliseconds>(t2 - t1);
+    cout << "---------------" << endl;
+    cout << "Elapsed time: " << sInt.count() / 1000.0 << "s" << endl;
 }
