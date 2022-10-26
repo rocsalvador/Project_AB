@@ -16,15 +16,13 @@ void Task_1::solve() {
     while (cin >> s) {
         maxSize = max(uint(s.size()), maxSize);
         std::string reversedS = Utils::reverseString(s);
-        uint depth = 0;
-        if (trie.paritialMatch(reversedS, depth, trie.getRoot())) {
-            uint remainingLength = s.size() - depth;
-            ++lengthDistribution[remainingLength];
-            ++matches;
-        }
+        uint length = trie.longestPerfectMatch(reversedS);
+        if (length != 0) ++matches;
+        uint remainingLength = s.size() - length;
+        ++lengthDistribution[remainingLength];
         ++totalS;
     }
     cout << "Sequences with a match: " << matches << " (" << matches / float(totalS) * 100 << "%)" << endl;
     cout << "Length distribution:" << endl;
-    for (uint i = 0; i < maxSize; ++i) cout << i + 1 << ": " << lengthDistribution[i] << endl;;
+    for (uint i = 0; i <= maxSize; ++i) cout << i << ": " << lengthDistribution[i] << endl;;
 }
