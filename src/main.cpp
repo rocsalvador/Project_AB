@@ -2,6 +2,7 @@
 #include <chrono>
 #include "task1.h"
 #include "task2.h"
+#include "task4.h"
 using namespace std;
 
 int main(int argc, char** argv) {
@@ -31,7 +32,11 @@ int main(int argc, char** argv) {
         task_2.solve(stof(argv[2]));
         break;
     case 4:
+    {
+        Task_4 task_4;
+        task_4.solve();
         break;
+    }
     case 5:
         break;
     default:
