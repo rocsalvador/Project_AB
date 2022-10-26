@@ -39,7 +39,7 @@ int main(int argc, char** argv) {
         return 1;
     }
     auto t2 = chrono::high_resolution_clock::now();
-    auto sInt = chrono::duration_cast<chrono::milliseconds>(t2 - t1);
+    double secondsElapsed = chrono::duration_cast<chrono::milliseconds>(t2 - t1).count() / 1000.0;
     cout << "---------------" << endl;
-    cout << "Elapsed time: " << sInt.count() / 1000.0 << "s" << endl;
+    cout << "Elapsed time: " << secondsElapsed  << "s" << endl;
 }

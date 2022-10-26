@@ -2,63 +2,92 @@
 
 Trie::Trie() {
     root = new Node;
+    root->isLeaf = false;
+}
+
+Trie::~Trie() {
+
+}
+
+int Trie::nuclToInt(char nucleotide) {
+    if (nucleotide == 'A') return 0;
+    else if (nucleotide == 'C') return 1;
+    else if (nucleotide == 'G') return 2;
+    else return 3;
 }
 
 void Trie::addText(const std::string& s, Node* node) {
     if (s != "") {
-        auto result = node->childs.find(s[0]);
+        int index = nuclToInt(s[0]);
         std::string nextStr;
         Node* nextNode;
         if (s.length() == 1) nextStr = "";
         else nextStr = s.substr(1, s.length() - 1);
-        if (result == node->childs.end()) {
+        node->isLeaf = false;
+        if (node->childs[index] == nullptr) {
             nextNode = new Node;
-            node->childs.insert({s[0], nextNode});
+            nextNode->isLeaf = true;
+            node->childs[index] = nextNode;
         }
-        else nextNode = result->second;
+        else nextNode = node->childs[index];
         addText(nextStr, nextNode);
     }
-    else {
-        node->childs.insert({'.', new Node});
-    }
+    else node->isLeaf = true;
 }
 
 Trie::Node* Trie::getRoot() {
     return root;
 }
 
-bool Trie::search(const std::string& s, Node* node) {
-    if (s == "") {
-        if (node->childs.find('.') != node->childs.end()) return true;
-        else return false;
-    }
+bool Trie::paritialMatch(const std::string& s, uint& depth, Node* node) {
+    if (node->isLeaf) return true;
+    if (s == "") return node->isLeaf;
     else {
-        auto result = node->childs.find(s[0]);
+        int index = nuclToInt(s[0]);
         std::string nextStr;
         if (s.length() == 1) nextStr = "";
         else nextStr = s.substr(1, s.length() - 1);
-        if (result == node->childs.end()) return false;
-        else return search(nextStr, result->second);
+        if (node->childs[index] == nullptr) return false;
+        else return paritialMatch(nextStr, ++depth, node->childs[index]);
     }
 }
 
-bool Trie::searchWithMissmatch(const std::string& s, int errors, int maxErrors, Node* node) {
-    if (s == "") {
-        if (node->childs.find('.') != node->childs.end()) return true;
-        else return false;
-    }
+bool Trie::partialMatchWithMissmatch(const std::string& s, uint& depth, int errors, int maxErrors, Node* node) {
+    if (node->isLeaf) return true;
+    if (s == "") return node->isLeaf;
     else {
-        auto result = node->childs.find(s[0]);
+        int index = nuclToInt(s[0]);
         std::string nextStr;
         if (s.length() == 1) nextStr = "";
         else nextStr = s.substr(1, s.length() - 1);
-        if (result == node->childs.end()) {
-            if (errors <= maxErrors) {
+        if (node->childs[index] == nullptr) {
+            if (errors < maxErrors) {
                 ++errors;
-                return searchWithMissmatch(nextStr, errors, maxErrors, node);
+                // Deletion
+                if (partialMatchWithMissmatch(nextStr, ++depth, errors, maxErrors, node)) {
+                    return true;
+                }
+                for (Node* child : node->childs) {
+                    if (child != nullptr) {
+                        // Addition
+                        if (partialMatchWithMissmatch(s, ++depth, errors, maxErrors, child)) {
+                            return true;
+                        }
+                        
+                        // Missmatch
+                        if (partialMatchWithMissmatch(nextStr, ++depth, errors, maxErrors, child)) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
             }
             else return false;
         }
-        else return searchWithMissmatch(nextStr, errors, maxErrors, result->second);
+        else return partialMatchWithMissmatch(nextStr, ++depth, errors, maxErrors, node->childs[index]);
     }
+}
+
+void Trie::show(Node* node) {
+
 }
