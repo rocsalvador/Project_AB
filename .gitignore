@@ -1,3 +1,5 @@
 *.o
 .vscode
 project
+data/tdt4287-unknown-adapter.txt
+data/MultiplexedSamples
