@@ -10,6 +10,14 @@ Trie::~Trie() {
 
 }
 
+void Trie::setPercentage(float percentage) {
+    this->percentage = percentage;
+}
+
+void Trie::setMaxTotalErrors(uint maxTotalErrors) {
+    this->maxTotalErrors = maxTotalErrors;
+}
+
 int Trie::nuclToInt(char nucleotide) {
     if (nucleotide == 'A') return 0;
     else if (nucleotide == 'C') return 1;
@@ -63,6 +71,33 @@ uint Trie::longestPerfectMatch(const std::string& s) {
     }
     return longestMatch;
 }
+
+uint Trie::longestImperfectMatch(const std::string& s, uint longest, uint length, uint errors, Node* node) {
+    if (errors > maxTotalErrors) return longest;
+
+    uint maxErrors = length * (percentage / 100.0);
+    if (s == "") {
+        if (node->isWordEnd and errors <= maxErrors) longest = std::max(length, longest);
+        return longest;
+    }
+
+    uint index = nuclToInt(s[0]);
+    std::string nextStr;
+    if (nextStr.length() == 1) nextStr = "";
+    else nextStr = s.substr(1, s.length() - 1);
+    if (node->isWordEnd and errors <= maxErrors) longest = std::max(length, longest);
+    ++length;
+    for (uint i = 0; i < node->childs.size(); ++i) {
+        Node* child = node->childs[i];
+        if (child != nullptr) {
+            if (i == index) longest = std::max(longest, longestImperfectMatch(nextStr, longest, length, errors, child));
+            else longest = std::max(longest, longestImperfectMatch(nextStr, longest, length, errors  + 1, child));
+        }
+    }
+    return longest;
+}
+
+
 void Trie::show(Node* node) {
 
 }

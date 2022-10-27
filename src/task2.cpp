@@ -1,29 +1,33 @@
 #include <string>
 #include "task2.h"
 #include "trie.h"
+#include "utils.h"
 #include <iostream>
 using namespace std;
 
 void Task_2::solve(float percentage) {
     std::string s, a = "TGGAATTCTCGGGTGCCAAGGAACTCCAGTCACACAGTGATCTCGTATGCCGTCTTCTGCTTG";
+    std::vector<uint> lengthDistribution = std::vector<uint> (a.size());
+    std::string reversedA = Utils::reverseString(a);
     Trie trie;
-    for (uint i = 1; i <= a.size(); ++i) {
-        trie.addText(a.substr(0, i), trie.getRoot());
+    trie.setPercentage(percentage);
+    for (uint i = 0; i < reversedA.size(); ++i) {
+        trie.addText(reversedA.substr(i, reversedA.size() - i), trie.getRoot());
     }
-    uint lengthDistr = 0, matches = 0, totalS = 0;
+    uint lengthDistr = 0, matches = 0, totalS = 0, maxSize = 0;
     while (cin >> s) {
-        for (uint i = s.size(); i > 0; --i) {
-            int maxErrors = i * (percentage / 100.0);
-            if (trie.searchWithMissmatch(s.substr(s.size() - i, i), 0, maxErrors, trie.getRoot())) {
-                // cout << s.substr(s.size() - i, i) << endl;
-                lengthDistr += s.size() - s.substr(s.size() - i, i).size();
-                ++matches;
-                break;
-            }
-        }
         ++totalS;
+        maxSize = max(uint(s.size()), maxSize);
+        std::string reversedS = Utils::reverseString(s);
+        uint maxTotalErrors = s.size() * (percentage / 100.0);
+        trie.setMaxTotalErrors(maxTotalErrors);
+        uint length = trie.longestImperfectMatch(reversedS, 0, 0, 0, trie.getRoot());
+        if (length != 0) ++matches;
+        uint remainingLength = s.size() - length;
+        ++lengthDistribution[remainingLength];
     }
     lengthDistr /= matches;
     cout << "Sequences with a match: " << matches << " (" << matches / float(totalS) * 100 << "%)" << endl;
-    cout << "Length distribution: " << lengthDistr << endl;
+    cout << "Length distribution:" << endl;
+    for (uint i = 0; i <= maxSize; ++i) cout << i << ": " << lengthDistribution[i] << endl;;
 }

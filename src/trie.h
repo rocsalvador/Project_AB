@@ -12,6 +12,10 @@ private:
 
     Node* root;
 
+    float percentage;
+
+    uint maxTotalErrors;
+
     int nuclToInt(char nucleotide);
 
 public:
@@ -19,9 +23,15 @@ public:
 
     ~Trie();
 
+    void setPercentage(float percentage);
+
+    void setMaxTotalErrors(uint maxTotalErrors);
+
     void addText(const std::string& s, Node* node);
 
     uint longestPerfectMatch(const std::string& s);
+
+    uint longestImperfectMatch(const std::string& s, uint longest, uint length, uint errors, Node* node);
 
     Node* getRoot();
 
