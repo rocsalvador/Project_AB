@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <string>
-#include "utils.h"
 
 class Task_4 {
 public:
@@ -11,16 +10,17 @@ public:
 
     std::vector<std::string> S;
     std::string A;
+    std::string B;
 
     std::vector<std::string> controlS;
     const std::string controlA = "TGGAATTCTCGGGTGCCAAGGAACTCCAGTCACACAGTGATCTCGTATGCCGTCTTCTGCTTG";
     std::vector<std::string> S2;
 
-    Utils u;
-
     void init();
 
     void solve();
+
+    void getLengthDistribution();
 };
 
 #endif

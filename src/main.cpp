@@ -35,6 +35,7 @@ int main(int argc, char** argv) {
     {
         Task_4 task_4;
         task_4.solve();
+        task_4.getLengthDistribution();
         break;
     }
     case 5:

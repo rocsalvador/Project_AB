@@ -7,22 +7,6 @@
 #include <random>
 #include <algorithm> 
 
-/*FALTA FER SUFFIX TREE -> AGAFAR-LO DEL MEU PRIMER COMMIT*/
-std::vector<std::string> Utils::findAndRemoveSuffixPrefixMatch(std::string a, std::vector<std::string> s, 
-            int error, bool allowInDel) {
-    
-    std::vector<std::string> waf;
-    /*
-         * To find the sequences in S that have a suffix that perfectly match a prefix of the
-         * adapter, i reverse both strings, that way i only need to create 1 suffixtree. (finding a
-         * prefix in reversed "S" that matches the suffix in reverse "a")
-    */ 
-}
-
-std::vector<std::string> Utils::findAndRemoveSuffixPrefixMatch(std::string a, std::vector<std::string> s) {
-    return findAndRemoveSuffixPrefixMatch(a, s, 0, false);
-}
-
 std::string Utils::createRandomDNAString(int len) {
     std::vector<char> alphabet = {'A', 'C', 'T', 'G', 'N'};
     
