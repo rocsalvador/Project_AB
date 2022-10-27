@@ -5,7 +5,7 @@
 #include <iostream>
 using namespace std;
 
-void Task_2::solve(float percentage) {
+void Task_2::solve(float percentage, bool allowID) {
     std::string s, a = "TGGAATTCTCGGGTGCCAAGGAACTCCAGTCACACAGTGATCTCGTATGCCGTCTTCTGCTTG";
     std::vector<uint> lengthDistribution = std::vector<uint> (a.size());
     std::string reversedA = Utils::reverseString(a);
@@ -17,11 +17,17 @@ void Task_2::solve(float percentage) {
     uint lengthDistr = 0, matches = 0, totalS = 0, maxSize = 0;
     while (cin >> s) {
         ++totalS;
+        if (totalS % 10000 == 0) cout << totalS << endl;
         maxSize = max(uint(s.size()), maxSize);
         std::string reversedS = Utils::reverseString(s);
         uint maxTotalErrors = s.size() * (percentage / 100.0);
         trie.setMaxTotalErrors(maxTotalErrors);
-        uint length = trie.longestImperfectMatch(reversedS, 0, 0, 0, trie.getRoot());
+        uint length = 0;
+        if (not allowID) length = trie.longestImperfectMatch(reversedS, 0, 0, 0, trie.getRoot());
+        else {
+            std::string pref = "", suf = "";
+            length = trie.longestImperfectMatchID(reversedS, suf, pref, 0, 0, trie.getRoot());
+        }
         if (length != 0) ++matches;
         uint remainingLength = s.size() - length;
         ++lengthDistribution[remainingLength];

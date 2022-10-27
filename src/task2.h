@@ -3,7 +3,7 @@
 
 class Task_2 {
 public:
-    void solve(float percentage);
+    void solve(float percentage, bool allowID);
 };
 
 #endif

@@ -16,8 +16,6 @@ private:
 
     uint maxTotalErrors;
 
-    int nuclToInt(char nucleotide);
-
 public:
     Trie();
 
@@ -32,6 +30,8 @@ public:
     uint longestPerfectMatch(const std::string& s);
 
     uint longestImperfectMatch(const std::string& s, uint longest, uint length, uint errors, Node* node);
+
+    uint longestImperfectMatchID(const std::string& s, const std::string& suff, const std::string& pref, uint longest, uint length, Node* node);
 
     Node* getRoot();
 

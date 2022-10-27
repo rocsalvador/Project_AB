@@ -61,3 +61,33 @@ std::string Utils::reverseString(const std::string& s) {
     for (int i = s.size() - 1; i >= 0; --i) reversedString.push_back(s[i]);
     return reversedString;
 }
+
+uint Utils::editDistance(const std::string& s, const std::string& a) {
+    uint m = s.length() + 1, n = a.length() + 1;
+    std::vector<std::vector<uint>> dp = std::vector<std::vector<uint>> (m, std::vector<uint> (n));
+    for (uint i = 0; i < m; ++i) {
+        for (uint j = 0; j < n; ++j) {
+            if (i == 0) dp[i][j] = j;
+            else if (j == 0) dp[i][j] = i;
+            else if (s[i - 1] == a[j - 1]) dp[i][j] = dp[i - 1][j - 1];
+            else {
+               dp[i][j] = 1 + std::min(dp[i][j - 1], std::min(dp[i - 1][j], dp[i - 1][j - 1]));
+            }
+        }
+    }
+    return dp[m - 1][n - 1];
+} 
+
+uint Utils::nuclToInt(char nucleotide) {
+    if (nucleotide == 'A') return 0;
+    else if (nucleotide == 'C') return 1;
+    else if (nucleotide == 'G') return 2;
+    else return 3;
+}
+
+char Utils::intToNucl(uint i) {
+    if (i == 0) return 'A';
+    else if (i == 1) return 'C';
+    else if (i == 2) return 'G';
+    else return 'T';
+}

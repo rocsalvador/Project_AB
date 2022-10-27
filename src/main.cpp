@@ -23,13 +23,13 @@ int main(int argc, char** argv) {
         task_1.solve();
         break;
     case 2:
-        if (argc < 3) {
+        if (argc < 4) {
             cout << "Usage:" << endl;
-            cout << "./project 2 percentage < path/to/input" << endl;
+            cout << "./project 2 [percentage] [allow_insertions]  < path/to/input" << endl;
             return 1;
         }
         Task_2 task_2;
-        task_2.solve(stof(argv[2]));
+        task_2.solve(stof(argv[2]), stoi(argv[3]));
         break;
     case 4:
     {
