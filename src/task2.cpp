@@ -17,7 +17,6 @@ void Task_2::solve(float percentage, bool allowID) {
     uint lengthDistr = 0, matches = 0, totalS = 0, maxSize = 0;
     while (cin >> s) {
         ++totalS;
-        if (totalS % 10000 == 0) cout << totalS << endl;
         maxSize = max(uint(s.size()), maxSize);
         std::string reversedS = Utils::reverseString(s);
         uint maxTotalErrors = s.size() * (percentage / 100.0);
