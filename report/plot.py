@@ -5,6 +5,12 @@ import sys
 filename = sys.argv[1]
 
 df = pd.DataFrame(pd.read_csv(filename))
+ 
+# Figure Size
+fig = plt.figure(figsize =(10, 7))
+ 
+# Horizontal Bar Plot
+plt.bar(df['length'], df['n_sequences'])
 
-df.plot(kind='bar')
+# Show Plot
 plt.show()
