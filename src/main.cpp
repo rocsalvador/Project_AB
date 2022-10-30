@@ -3,6 +3,7 @@
 #include "task1.h"
 #include "task2.h"
 #include "task4.h"
+#include "task5.h"
 using namespace std;
 
 int main(int argc, char** argv) {
@@ -39,7 +40,10 @@ int main(int argc, char** argv) {
         break;
     }
     case 5:
-        break;
+    {
+        Task_5 task_5;
+        task_5.solve();
+    }
     default:
         cout << "No valid task" << endl;
         return 1;

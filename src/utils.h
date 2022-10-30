@@ -5,7 +5,7 @@ class Utils {
 public:
     static std::string reverseString(const std::string& s);
 
-    static std::string createRandomDNAString(int len);
+    static std::string randomDNAsequence(int len);
 
     static uint editDistance(const std::string& a, const std::string& s);
 

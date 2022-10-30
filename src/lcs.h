@@ -9,15 +9,17 @@ private:
     std::unordered_map<char, int> idMap;
     std::unordered_map<int, char> charMap;
 
-    char getMostLikely(int index);
+    char getCharWithMoreOcc(int index);
 
 public:
     LCSuffix(std::vector<char> alphabet);
 
-    void process(std::string sequence);
+    void updateCount(std::string sequence);
 
-    void process(std::vector<std::string> sequences);
+    void updateCount(std::vector<std::string> sequences);
 
     std::string getMostCommon();
+
+    static std::string multi_lcs(std::vector<std::string> sequences);
 
 };

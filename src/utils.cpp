@@ -7,8 +7,8 @@
 #include <random>
 #include <algorithm> 
 
-std::string Utils::createRandomDNAString(int len) {
-    std::vector<char> alphabet = {'A', 'C', 'T', 'G', 'N'};
+std::string Utils::randomDNAsequence(int len) {
+    std::vector<char> alphabet = {'A', 'C', 'T', 'G'};
     
     std::stringstream ss;
     for (int i = 0; i < len; i++)
@@ -18,13 +18,13 @@ std::string Utils::createRandomDNAString(int len) {
 }
 
 void Utils::compare(std::string e, std::string a) {
-    std::cout << "Expected: " << e << std::endl;
-    std::cout << "Actual: " << a << std::endl;
+    std::cout << "Original: " << e << std::endl;
+    std::cout << "Estimated: " << a << std::endl;
 
     int correct = 0;
     int compLen = std::min(e.length(), a.length());
 
-    std::cout << "Matching:" << std::endl;
+    std::cout << "Similarity:" << std::endl;
 
     for (int i = 0; i < compLen; i++) {
         if (e[i] == a[i]) {
@@ -37,7 +37,7 @@ void Utils::compare(std::string e, std::string a) {
     }
     std::cout << std::endl;
     double percentageCorrect = 100.0 * (double) correct / compLen;
-    std::cout << "Correct: " << percentageCorrect << std::endl;
+    std::cout << "Match percentage of: " << percentageCorrect << std::endl;
 }
 
 std::string Utils::reverseString(const std::string& s) {

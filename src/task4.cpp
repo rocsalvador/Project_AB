@@ -30,30 +30,31 @@ void Task_4::init() {
 void Task_4::solve() {
     init();
 
-    std::cout << "1: Randomly guessing the adapter" << std::endl;
-    Utils::compare(controlA, Utils::createRandomDNAString(controlA.length()));
+    /*std::cout << "1: Randomly guessing the adapter" << std::endl;
+    Utils::compare(controlA, Utils::randomDNAsequence(controlA.length()));*/
 
     std::cout << std::endl;
 
-    std::cout << "2: Testing algorithm for sequence with known adapter" << std::endl;
-    LCSuffix control = LCSuffix(alphabet);
-    control.process(controlS);
+    std::cout << "1: Testing algorithm for sequence with known adapter" << std::endl;
+    std::vector<char> alphabetModified = {'A', 'C', 'T', 'G'};
+    LCSuffix control = LCSuffix(alphabetModified);
+    control.updateCount(controlS);
     std::string controlRes = control.getMostCommon();
-    Utils::compare(controlA, controlRes);
+    std::cout << "Sequence found: " << controlRes << std::endl;
 
     std::cout << std::endl;
 
-    std::cout << "3: Finding sequence in 'seqset3.txt'" << std::endl;
+    std::cout << "2: Finding sequence in 'seqset3.txt'" << std::endl;
     LCSuffix lcSuffix = LCSuffix(alphabet);
-    lcSuffix.process(S2);
+    lcSuffix.updateCount(S2);
     B = lcSuffix.getMostCommon();
     std::cout << "Sequence found: " << B << std::endl;
 
     std::cout << std::endl;
 
-    std::cout << "4: Finding most likely adapter in 'tdt4287-unknown-adapter.txt'" << std::endl;
+    std::cout << "3: Finding most likely adapter in 'tdt4287-unknown-adapter.txt'" << std::endl;
     lcSuffix = LCSuffix(alphabet);
-    lcSuffix.process(S);
+    lcSuffix.updateCount(S);
     A = lcSuffix.getMostCommon();
     std::cout << "Most likely adapter sequence: " << A << std::endl;
 
@@ -83,5 +84,5 @@ void Task_4::getLengthDistribution() {
     }
     std::cout << "Sequences with a match: " << matches << " (" << matches / float(totalS) * 100 << "%)" << std::endl;
     std::cout << "Length distribution:" << std::endl;
-    for (uint i = 0; i <= maxSize; ++i) std::cout << i << ": " << lengthDistribution[i] << std::endl;;
+    for (uint i = 0; i <= maxSize; ++i) std::cout << i << "," << lengthDistribution[i] << std::endl;;
 }
