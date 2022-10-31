@@ -1,6 +1,5 @@
 #include "task5.h"
 #include "lcs.h"
-#include "enumerate.h"
 
 #include <fstream>
 #include <algorithm>    // std::copy
@@ -40,6 +39,7 @@ std::pair<std::vector<std::string>, std::vector<std::string>> Task_5::identifyBa
         copyOfSequences.push_back(sequences[i]);
     }
 
+    std::cout << "Done copying" << std::endl;
     // Seqs share same length
 
     while (true) {
@@ -66,6 +66,14 @@ std::pair<std::vector<std::string>, std::vector<std::string>> Task_5::identifyBa
             }
         }
         std::cout << "Done indexesToPop" << std::endl;
+        uint sizeOfCopy = copyOfSequences.size();
+        copyOfSequences.clear();
+        for (uint i = 0; i < sizeOfCopy; i++) {
+            if (std::find(indexesToPop.begin(), indexesToPop.end(), i) != indexesToPop.end())
+                copyOfSequences.push_back(sequences[i]);
+        }
+        std::cout << "Done update copyOfSequences" << std::endl;
+        /*
         std::vector<int>::iterator it;
         uint sizeOfCopy = copyOfSequences.size();
         copyOfSequences.clear();
@@ -76,6 +84,7 @@ std::pair<std::vector<std::string>, std::vector<std::string>> Task_5::identifyBa
             }
         }
         std::cout << "done copyOfsequences" << std::endl;
+        */
     }
     return std::make_pair(barcodes, sequences);
 }

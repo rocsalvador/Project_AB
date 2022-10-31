@@ -6,6 +6,9 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <unordered_map> 
+#include <vector>
+#include <algorithm>
 
 void Task_4::init() {
     std::string s;
@@ -28,10 +31,11 @@ void Task_4::init() {
 }
 
 void Task_4::solve() {
+
     init();
 
-    /*std::cout << "1: Randomly guessing the adapter" << std::endl;
-    Utils::compare(controlA, Utils::randomDNAsequence(controlA.length()));*/
+    std::cout << "1: Randomly guessing the adapter" << std::endl;
+    Utils::compare(controlA, Utils::randomDNAsequence(controlA.length()));
 
     std::cout << std::endl;
 
@@ -59,6 +63,8 @@ void Task_4::solve() {
     std::cout << "Most likely adapter sequence: " << A << std::endl;
 
     std::cout << std::endl;
+
+    getFrequencyDistribution();
 }
 
 void Task_4::getLengthDistribution() {
@@ -85,4 +91,28 @@ void Task_4::getLengthDistribution() {
     std::cout << "Sequences with a match: " << matches << " (" << matches / float(totalS) * 100 << "%)" << std::endl;
     std::cout << "Length distribution:" << std::endl;
     for (uint i = 0; i <= maxSize; ++i) std::cout << i << "," << lengthDistribution[i] << std::endl;;
+}
+
+bool comp(std::pair<std::string, int>& p1, std::pair<std::string, int>& p2) {
+    return p1.second > p2.second;
+}
+
+void Task_4::getFrequencyDistribution() {
+    std::ifstream file("data/tdt4287-unknown-adapter.txt");
+    std::string s;
+    std::unordered_map<std::string, int> map;
+    while (file >> s) {
+        auto result = map.find(s);
+        if (result == map.end()) map.insert({s, 1});
+        else ++result->second;
+    }
+    
+    std::vector<std::pair<std::string, int>> v;
+    for (auto i : map) {
+        v.push_back(i);
+    }
+    std::sort(v.begin(), v.end(), comp);
+    for (int i = 0; i < 30; ++i) {
+        std::cout << v[i].first << "," << v[i].second << std::endl;
+    }
 }
