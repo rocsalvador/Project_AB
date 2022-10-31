@@ -43,6 +43,7 @@ int main(int argc, char** argv) {
     {
         Task_5 task_5;
         task_5.solve();
+        break;
     }
     default:
         cout << "No valid task" << endl;

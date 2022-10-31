@@ -21,6 +21,8 @@ public:
     void solve();
 
     void getLengthDistribution();
+
+    void getFrequencyDistribution();
 };
 
 #endif
