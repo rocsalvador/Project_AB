@@ -1,6 +1,6 @@
 # Project – Preprocessor for high throughput
 
-Modern high throughput DNA sequencing machines, such as Illumina’s HiSeq and ABI’s Ion S (Figure 1 ), can generate ~10^10 nucleotides of data per day. Both technologies are based on massive parallel sequencing where millions of short(35- 25 0 nucleotides) DNA fragments are sequenced in parallel. The end result is a large set S (sequence library), |S| » 108 , of short, fixed-length DNA strings si, "i,j si Î S, sj Î S, |si| = |sj|, |si| Î {35, 50, 75, 100 , 125, 250}.Because of the technology used to sequence the DNA fragments, the sequences in the sequence library typically contain different suffixes that are prefixes to a specific DNA sequence. This DNA sequence is called an adapter sequence and the suffixes corresponding to prefixes of this adapter sequence are called adapter fragments. The adapter fragments are artificially added sequences that do not correspond to any “natural” DNA. Consequently, the first step in analyzing a high-throughput sequencing library is to remove these adapter fragments. The goal of this project is to develop such a preprocessor.
+Modern high throughput DNA sequencing machines, such as Illumina’s HiSeq and ABI’s Ion S, can generate ~10^10 nucleotides of data per day. Both technologies are based on massive parallel sequencing where millions of short(35- 25 0 nucleotides) DNA fragments are sequenced in parallel. The end result is a large set S (sequence library), |S| » 108 , of short, fixed-length DNA strings si, "i,j si Î S, sj Î S, |si| = |sj|, |si| Î {35, 50, 75, 100 , 125, 250}.Because of the technology used to sequence the DNA fragments, the sequences in the sequence library typically contain different suffixes that are prefixes to a specific DNA sequence. This DNA sequence is called an adapter sequence and the suffixes corresponding to prefixes of this adapter sequence are called adapter fragments. The adapter fragments are artificially added sequences that do not correspond to any “natural” DNA. Consequently, the first step in analyzing a high-throughput sequencing library is to remove these adapter fragments. The goal of this project is to develop such a preprocessor.
 
 ## Task 1 – Perfectly matching adapter fragments
 
@@ -57,7 +57,7 @@ s_3_sequence_1M.txt.gz and Seqset3.txt.gz?
 ## Task 5 – De-multiplex barcoded library
 
 A common strategy for reducing sequencing costs when sequencing multiple samples
-is to use a specific 3’ adapter sequence (barcode; see Figure 3 for an example) per
+is to use a specific 3’ adapter sequence per
 sample, mix all sample libraries and run a single sequencing reaction, and then use the
 sample-specific adapter sequence (barcode) to identify (de-multiplex) which sample
 any given sequence belongs to. The file MultiplexedSamples.gz contains the
