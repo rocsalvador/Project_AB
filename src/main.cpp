@@ -8,11 +8,24 @@ using namespace std;
 
 int main(int argc, char** argv) {
     if (argc < 2) {
-        cout << "Usage:" << endl;
-        cout << "./project task_num < path/to/input" << endl;
+        cout << "Task 1, 4 and 5:" << endl;
+        cout << "./project [1,4,5]" << endl << endl;
+
+        cout << "Task 2:" << endl;
+        cout << "./project 2 [error_percentage] [id]" << endl;
+        cout << "id -> 0 to only allow missmatches" << endl;
+        cout << "   -> 1 to allow insertions and deletions" << endl;
         return 1;
     }
+
     int task = stoi(argv[1]);
+    if (task == 2 and argc < 4) {
+        cout << "Task 2:" << endl;
+        cout << "./project 2 [error_percentage] [id]" << endl;
+        cout << "id -> 0 to only allow missmatches" << endl;
+        cout << "   -> 1 to allow insertions and deletions" << endl;
+        return 1;   
+    }
     cout << "Task " << task << endl;
     cout << "---------------" << endl;
 
@@ -24,11 +37,6 @@ int main(int argc, char** argv) {
         task_1.solve();
         break;
     case 2:
-        if (argc < 4) {
-            cout << "Usage:" << endl;
-            cout << "./project 2 [percentage] [allow_insertions]  < path/to/input" << endl;
-            return 1;
-        }
         Task_2 task_2;
         task_2.solve(stof(argv[2]), stoi(argv[3]));
         break;

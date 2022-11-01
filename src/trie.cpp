@@ -74,11 +74,15 @@ uint Trie::longestImperfectMatch(const std::string& s, uint longest, uint length
         if (node->isWordEnd and errors <= maxErrors) longest = std::max(length, longest);
         return longest;
     }
+
     uint index = Utils::nuclToInt(s[0]);
+
     std::string nextStr;
     if (nextStr.length() == 1) nextStr = "";
     else nextStr = s.substr(1, s.length() - 1);
+
     if (node->isWordEnd and errors <= maxErrors) longest = std::max(length, longest);
+
     ++length;
     for (uint i = 0; i < node->childs.size(); ++i) {
         Node* child = node->childs[i];
@@ -99,12 +103,14 @@ uint Trie::longestImperfectMatchID(const std::string& s, const std::string& suf,
         if (node->isWordEnd and errors <= maxErrors) longest = std::max(length, longest);
         return longest;
     }
-    uint index = Utils::nuclToInt(s[0]);
+
     std::string nextStr;
     if (nextStr.length() == 1) nextStr = "";
     else nextStr = s.substr(1, s.length() - 1);
     if (node->isWordEnd and errors <= maxErrors) longest = std::max(length, longest);
+
     ++length;
+
     std::string nextSuf = suf;
     nextSuf.push_back(s[0]);
     for (uint i = 0; i < node->childs.size(); ++i) {
@@ -112,8 +118,7 @@ uint Trie::longestImperfectMatchID(const std::string& s, const std::string& suf,
         if (child != nullptr) {
             std::string nextPref = pref;
             nextPref.push_back(Utils::intToNucl(i));
-            if (i == index) longest = std::max(longest, longestImperfectMatchID(nextStr, nextSuf, nextPref, longest, length, child));
-            else longest = std::max(longest, longestImperfectMatchID(nextStr, nextSuf, nextPref, longest, length, child));
+            longest = std::max(longest, longestImperfectMatchID(nextStr, nextSuf, nextPref, longest, length, child));
         }
     }
     return longest;

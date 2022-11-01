@@ -3,9 +3,11 @@
 #include "trie.h"
 #include "utils.h"
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 void Task_2::solve(float percentage, bool allowID) {
+    std::ifstream inputFile("data/s_3_sequence_1M.txt");
     std::string s, a = "TGGAATTCTCGGGTGCCAAGGAACTCCAGTCACACAGTGATCTCGTATGCCGTCTTCTGCTTG";
     std::vector<uint> lengthDistribution = std::vector<uint> (a.size());
     std::string reversedA = Utils::reverseString(a);
@@ -15,7 +17,7 @@ void Task_2::solve(float percentage, bool allowID) {
         trie.addText(reversedA.substr(i, reversedA.size() - i), trie.getRoot());
     }
     uint lengthDistr = 0, matches = 0, totalS = 0, maxSize = 0;
-    while (cin >> s) {
+    while (inputFile >> s) {
         ++totalS;
         maxSize = max(uint(s.size()), maxSize);
         std::string reversedS = Utils::reverseString(s);
